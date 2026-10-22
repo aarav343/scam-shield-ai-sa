@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import csv
 import io
 import json
 import re
@@ -653,99 +652,10 @@ def build_zip() -> None:
                 package.writestr(f"intents/{name}_usersays_en.json", json.dumps(examples, indent=2))
 
 
-def build_readme() -> None:
-    rows = []
-    for item in INTENTS:
-        rows.append(f"| {item['name']} | {len(item['phrases'])} | {', '.join(item.get('params', [])) or 'None'} |")
-    entity_rows = [f"| @{name} | {', '.join(values)} |" for name, values in ENTITIES.items()]
-    content = f"""# ScamShield AI
-
-**Student:** Aarav Motwani  
-**Course:** Artificial Intelligence: Real-World Applications and Implications  
-**Assessment:** Summative Assessment (Individual), IBCP Year 1  
-**Platform:** Google Dialogflow ES
-
-## Project overview
-
-ScamShield AI is a conversational fraud awareness assistant for people who receive suspicious payment requests, links, job offers, and impersonation calls. It does not inspect a URL or verify an identity automatically. It offers warning signs, safe next steps, and official reporting routes. It never asks for real OTPs, UPI PINs, passwords, CVV, or full account details.
-
-## User research and scope
-
-Primary users are digital payment users, students and job seekers, older adults, and people who have already acted on a suspicious request. Their pain points are urgent pressure, confusing payment interfaces, fake authority cues, and uncertainty about what to save or report. The goal is to give immediate, understandable advice and to move affected users toward their bank and official reporting channels. The project does not move money, contact banks, certify a message as safe, or replace a professional investigation.
-
-## Architecture
-
-The import contains **{len(INTENTS) + 2} intents** (including default welcome and fallback), **{len(ENTITIES)} custom entities**, 12 example phrases per custom intent, a required follow-up slot for the requested action, short-lived contexts for scam details and the quiz, quick replies, and a reporting card. Responses are built into the agent; no webhook or external user data store is required. The `ScamCheckIntent` gives immediate precautionary advice before `ScamDetailsIntent` asks what action the sender requested.
-
-## Intent catalogue
-
-| Intent | Training phrases | Custom entity parameters |
-| --- | ---: | --- |
-{chr(10).join(rows)}
-
-## Entity catalogue
-
-| Entity | Example canonical values |
-| --- | --- |
-{chr(10).join(entity_rows)}
-
-## Import and deployment
-
-1. In the Dialogflow **ES** console, create a separate new agent named `ScamShield AI`. Do not import into the FleetFix agent.
-2. In the new agent, open Settings > Export and Import > **Import from ZIP** and select `ScamShield_AI_Dialogflow_ES_Import.zip`. Do not use Restore from ZIP on an existing agent.
-3. Wait for training to finish. Check that the imported intent and entity counts match this README.
-4. Test the scenarios in `TEST_PLAN.md` in the right-hand console. Record actual results and revise any misclassified training phrases.
-5. In Integrations, enable **Web Demo** and copy its live URL into this README once it works. Then create the assignment GitHub repository and add these files plus the verified URL. Final upload is a separate step after review.
-
-**Live chatbot URL:** Pending live Dialogflow deployment.  
-**GitHub URL:** Pending repository creation.
-
-## Privacy and safety
-
-The agent is intentionally advisory. It does not accept real credentials and does not claim to detect fraud with certainty. A user who has lost money is directed to contact their bank immediately and use India's official financial cyber fraud helpline **1930** or [cybercrime.gov.in](https://cybercrime.gov.in/). These routes should be rechecked before final submission.
-
-## Sources
-
-- [SA brief](https://docs.google.com/document/d/1S5Mo9vpwx0NfUdKMfST0aEMQzLXQEurs/edit)
-- [Dialogflow ES agent settings and import](https://docs.cloud.google.com/dialogflow/es/docs/agents-settings)
-- [Dialogflow ES actions and parameters](https://docs.cloud.google.com/dialogflow/es/docs/intents-actions-parameters)
-- [NPCI fraud awareness](https://www.npci.org.in/fraud-awareness)
-- [RBI digital banking safeguards](https://rbikehtahai.rbi.org.in/safeguards-for-digital-banking.html)
-- [National Cybercrime Reporting Portal](https://cybercrime.gov.in/)
-"""
-    (ROOT / "README.md").write_text(content)
-
-
-def build_tests() -> None:
-    cases = [
-        ("UPI collect request", "They sent me a UPI collect request", "UPICollectIntent", "Warn that a PIN authorises payment; do not approve an unknown request."),
-        ("OTP impersonation", "A caller asked for my one-time password", "OTPIntent", "Tell the user not to share the OTP and to use official bank contact details."),
-        ("Fake job fee", "A job offer asks for a registration fee", "FakeJobIntent", "Warn about upfront fees and advise independent employer verification."),
-        ("Phishing link", "I received a shortened link in SMS", "PhishingLinkIntent", "Advise against clicking and suggest typing the official address directly."),
-        ("Remote access", "Someone asked me to download AnyDesk", "RemoteAccessIntent", "Warn against installing remote-control software for unsolicited callers."),
-        ("Money already lost", "I sent money to a scammer", "AccountCompromisedIntent", "Direct the user to their bank, 1930, and the official reporting portal."),
-        ("Scam detail slot filling", "Can you check if this message is a scam? / They want me to send money", "ScamCheckIntent -> ScamDetailsIntent", "Give an immediate warning, then safe action guidance after the requested action is supplied."),
-        ("Quiz, correct answer", "Start a safety quiz / No", "QuizStartIntent -> QuizSafeAnswerIntent", "Confirm that OTPs must not be shared."),
-        ("Quiz, unsafe answer", "Start a safety quiz / Yes", "QuizStartIntent -> QuizUnsafeAnswerIntent", "Correct the answer and explain why an OTP request is unsafe."),
-        ("Fallback", "zxqv unknown phrase", "Default Fallback Intent", "Offer safe options and urgent reporting route."),
-    ]
-    with (ROOT / "test_cases.csv").open("w", newline="") as file:
-        writer = csv.writer(file)
-        writer.writerow(["Scenario", "Test input", "Expected intent", "Expected behaviour", "Live result", "Fix made"])
-        writer.writerows([*row, "Not tested in Dialogflow yet", ""] for row in cases)
-    (ROOT / "TEST_PLAN.md").write_text("""# Test plan and optimization log
-
-Run every case in `test_cases.csv` after importing the agent. Use fresh test sessions when context could affect results. For each, record the actual matched intent, response, and parameter values. If a test fails, add a distinct training phrase or revise an overlapping entity, retrain the agent, and rerun the case. The CSV contains expected outcomes, not claimed live results.
-
-For a second pass, try natural paraphrases, misspellings, and unexpected input. Confirm that the agent never asks for a real OTP or PIN, that reports direct users to official channels, and that the quiz answer is interpreted only while its context is active.
-""")
-
 
 def main() -> None:
     validate()
     build_zip()
-    # Preserve reviewed documentation and recorded live test results.
-    # Regenerate them deliberately only when starting a new assessment.
     print(f"Built {len(INTENTS) + 2} intents, {len(ENTITIES)} entities, and {sum(len(item['phrases']) for item in INTENTS) + len(WELCOME['phrases'])} training phrases.")
 
 
