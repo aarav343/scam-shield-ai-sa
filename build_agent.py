@@ -744,8 +744,8 @@ For a second pass, try natural paraphrases, misspellings, and unexpected input. 
 def main() -> None:
     validate()
     build_zip()
-    build_readme()
-    build_tests()
+    # Preserve reviewed documentation and recorded live test results.
+    # Regenerate them deliberately only when starting a new assessment.
     print(f"Built {len(INTENTS) + 2} intents, {len(ENTITIES)} entities, and {sum(len(item['phrases']) for item in INTENTS) + len(WELCOME['phrases'])} training phrases.")
 
 
