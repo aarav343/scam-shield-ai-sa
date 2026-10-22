@@ -13,7 +13,7 @@ Scam Shield AI is a human-centered conversational fraud-awareness assistant for 
 
 Primary users are digital-payment users, students and job seekers, older adults, and people who may already have shared information or transferred money. Their pain points include urgency and pressure, confusing payment interfaces, fake authority cues, and uncertainty about what to save or report. The goal is to give a quick warning, a concise explanation, and a safe next action, then direct affected users to their bank and official reporting channels. The project does not move money, contact banks, or replace a professional investigation.
 
-The assessment brief describes the intended assistant as bilingual. The current Dialogflow ES agent is configured in English; a second language, translated responses, and bilingual test evidence are not yet implemented. Do not describe the live prototype as bilingual until that work is completed and tested.
+The assessment brief calls for a bilingual assistant. Hindi is selectable in the live agent, and a bilingual import ZIP has been prepared in the local project package. On 22 October 2026, the live Hindi OTP intent had no Hindi training phrases or response. Hindi support remains pending until that ZIP is imported and bilingual tests pass.
 
 ## Architecture
 
@@ -60,26 +60,25 @@ The import contains **21 intents** (including default welcome and fallback), **1
 
 ## Import and deployment
 
-The agent exists in the user's Dialogflow ES account as `ScamShieldAI` (agent ID `scamshieldai-k9we`). The import ZIP was loaded and the console showed 21 intents and 10 custom entities. Do not import it again into the active agent unless a future change requires a restore.
+The Dialogflow ES agent is `ScamShieldAI` (agent ID `scamshieldai-k9we`). The English ZIP was loaded, and the console showed 21 intents and 10 custom entities. The bilingual ZIP is prepared locally but has not been imported into the live agent or uploaded to this repository.
 
-The live console checks recorded in `test_cases.csv` passed for all ten scenarios, including remote-access, both quiz branches, slot/context follow-up, and fallback. The Integrations page displayed an IAM permission warning during this continuation, so Web Demo could not yet be enabled or verified.
+All ten scenarios in `test_cases.csv` passed in the English console. A second pass on 22 October 2026 also matched UPI refund PIN, misspelled SMS link, and out-of-context quiz inputs to safe responses. The Web Demo activation returned a URL/body name-mismatch error and reverted to ENABLE when reopened. Its URL also produced a certificate-name error in Chrome, so the demo is not verified or available for submission as a working link.
 
-**Live chatbot URL:** Not yet enabled (Dialogflow Web Demo requires permission).  
-**GitHub URL:** https://github.com/aarav343/scam-shield-ai-sa (private; currently visible only to the account owner and invited collaborators).  
-**Candidate registration number:** Not provided; add it if required by the brief.
+**Web Demo URL shown by Dialogflow:** https://bot.dialogflow.com/95a95802-5118-412d-97c5-81dff9d0ca0c (not verified).  
+**GitHub URL:** https://github.com/aarav343/scam-shield-ai-sa (private).  
+**Candidate registration number:** Not provided; add only if required by the brief.
 
 ## Review checklist
 
-- Enable and verify the Web Demo after resolving Dialogflow permission; then record its actual URL here.
-- Optionally run a second round with paraphrases and misspellings to evaluate robustness.
-- Complete and test the second language described in the brief.
-- If the teacher must review the repository, confirm whether public visibility is required or add the teacher as a collaborator after getting their GitHub username. Do not make it public without checking first.
-- Add the candidate registration number only if required; it has not been provided.
-- Review all advice and sources, then perform the final school upload yourself.
+- Import the prepared bilingual ZIP from the local project package, then inspect Hindi phrases and responses and run Hindi tests.
+- Resolve the Dialogflow Web Demo name-mismatch error and verify its URL with a valid certificate before submitting it as a working link.
+- If the teacher needs repository access, add their GitHub username as a collaborator or agree on visibility later.
+- Add the candidate registration number if required; this was deferred for later.
+- Review the final package and complete the school upload.
 
 ## Privacy and safety
 
-The agent is intentionally advisory. It does not accept real credentials and does not claim to detect fraud with certainty. A user who has lost money is directed to contact their bank immediately and use India's official financial cyber fraud helpline **1930** or [cybercrime.gov.in](https://cybercrime.gov.in/). These routes should be rechecked before final submission.
+The agent is intentionally advisory. It does not accept real credentials and does not claim to detect fraud with certainty. A user who has lost money is directed to contact their bank immediately and use India's official financial cyber fraud helpline **1930** or [cybercrime.gov.in](https://cybercrime.gov.in/). These routes were checked against the official cybercrime, NPCI, and RBI sources on 22 October 2026.
 
 ## Sources
 
