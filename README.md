@@ -13,7 +13,7 @@ Scam Shield AI is a human-centered conversational fraud-awareness assistant for 
 
 Primary users are digital-payment users, students and job seekers, older adults, and people who may already have shared information or transferred money. Their pain points include urgency and pressure, confusing payment interfaces, fake authority cues, and uncertainty about what to save or report. The goal is to give a quick warning, a concise explanation, and a safe next action, then direct affected users to their bank and official reporting channels. The project does not move money, contact banks, or replace a professional investigation.
 
-The assessment brief calls for a bilingual assistant. Hindi is selectable in the live agent, and a bilingual import ZIP has been prepared in the local project package. On 22 October 2026, the live Hindi OTP intent had no Hindi training phrases or response. Hindi support remains pending until that ZIP is imported and bilingual tests pass.
+English is the working language in the recorded Dialogflow ES console tests. Hindi is available in the language selector. In the recorded Hindi console tests, scam requests reached the fallback or an unrelated intent; the separate Hindi package was not active during those tests. Results are in `HINDI_CONSOLE_TESTS.md`.
 
 ## Architecture
 
@@ -58,23 +58,13 @@ The import contains **21 intents** (including default welcome and fallback), **1
 | @job-fee | registration fee, training fee, security deposit, equipment fee |
 | @loss-status | money sent, credentials shared, app installed, no action taken |
 
-## Import and deployment
+## Dialogflow console results
 
-The Dialogflow ES agent is `ScamShieldAI` (agent ID `scamshieldai-k9we`). The English ZIP was loaded, and the console showed 21 intents and 10 custom entities. The bilingual ZIP is prepared locally but has not been imported into the live agent or uploaded to this repository.
+The agent is `ScamShieldAI` (`scamshieldai-k9we`). Its English configuration contains 21 intents and 10 custom entities. The ten scenarios in `test_cases.csv` and three additional English inputs in `SECOND_PASS.md` passed in the Dialogflow ES console. The English greeting `hi` also matched Default Welcome Intent when `en` was selected. The Hindi results in `HINDI_CONSOLE_TESTS.md` describe the live agent before the separate Hindi package was imported.
 
-All ten scenarios in `test_cases.csv` passed in the English console. A second pass on 22 October 2026 also matched UPI refund PIN, misspelled SMS link, and out-of-context quiz inputs to safe responses. The Web Demo activation returned a URL/body name-mismatch error and reverted to ENABLE when reopened. Its URL also produced a certificate-name error in Chrome, so the demo is not verified or available for submission as a working link. Google documents that Web Demo supports only the default agent language; use the Dialogflow console to verify Hindi even if the demo is repaired.
+The chatbot is demonstrated through the Dialogflow ES console. The former Web Demo URL returns 404 and is omitted from this repository's project links.
 
-**Web Demo URL shown by Dialogflow:** https://bot.dialogflow.com/95a95802-5118-412d-97c5-81dff9d0ca0c (not verified).  
-**GitHub URL:** https://github.com/aarav343/scam-shield-ai-sa (private).  
-**Candidate registration number:** Not provided; add only if required by the brief.
-
-## Review checklist
-
-- Import the prepared bilingual ZIP from the local project package, then inspect Hindi phrases and responses and run Hindi tests in the Dialogflow console.
-- Resolve the Dialogflow Web Demo name-mismatch error and verify its URL with a valid certificate before submitting it as a working link.
-- If the teacher needs repository access, add their GitHub username as a collaborator or agree on visibility later.
-- Add the candidate registration number if required; this was deferred for later.
-- Review the final package and complete the school upload.
+**GitHub repository:** https://github.com/aarav343/scam-shield-ai-sa (private).
 
 ## Privacy and safety
 
