@@ -62,7 +62,7 @@ The import contains **21 intents** (including default welcome and fallback), **1
 
 The Dialogflow ES agent is `ScamShieldAI` (agent ID `scamshieldai-k9we`). The English ZIP was loaded, and the console showed 21 intents and 10 custom entities. The bilingual ZIP is prepared locally but has not been imported into the live agent or uploaded to this repository.
 
-All ten scenarios in `test_cases.csv` passed in the English console. A second pass on 22 October 2026 also matched UPI refund PIN, misspelled SMS link, and out-of-context quiz inputs to safe responses. The Web Demo activation returned a URL/body name-mismatch error and reverted to ENABLE when reopened. Its URL also produced a certificate-name error in Chrome, so the demo is not verified or available for submission as a working link.
+All ten scenarios in `test_cases.csv` passed in the English console. A second pass on 22 October 2026 also matched UPI refund PIN, misspelled SMS link, and out-of-context quiz inputs to safe responses. The Web Demo activation returned a URL/body name-mismatch error and reverted to ENABLE when reopened. Its URL also produced a certificate-name error in Chrome, so the demo is not verified or available for submission as a working link. Google documents that Web Demo supports only the default agent language; use the Dialogflow console to verify Hindi even if the demo is repaired.
 
 **Web Demo URL shown by Dialogflow:** https://bot.dialogflow.com/95a95802-5118-412d-97c5-81dff9d0ca0c (not verified).  
 **GitHub URL:** https://github.com/aarav343/scam-shield-ai-sa (private).  
@@ -70,7 +70,7 @@ All ten scenarios in `test_cases.csv` passed in the English console. A second pa
 
 ## Review checklist
 
-- Import the prepared bilingual ZIP from the local project package, then inspect Hindi phrases and responses and run Hindi tests.
+- Import the prepared bilingual ZIP from the local project package, then inspect Hindi phrases and responses and run Hindi tests in the Dialogflow console.
 - Resolve the Dialogflow Web Demo name-mismatch error and verify its URL with a valid certificate before submitting it as a working link.
 - If the teacher needs repository access, add their GitHub username as a collaborator or agree on visibility later.
 - Add the candidate registration number if required; this was deferred for later.
@@ -85,6 +85,7 @@ The agent is intentionally advisory. It does not accept real credentials and doe
 - [SA brief](https://docs.google.com/document/d/1S5Mo9vpwx0NfUdKMfST0aEMQzLXQEurs/edit)
 - [Dialogflow ES agent settings and import](https://docs.cloud.google.com/dialogflow/es/docs/agents-settings)
 - [Dialogflow ES actions and parameters](https://docs.cloud.google.com/dialogflow/es/docs/intents-actions-parameters)
+- [Dialogflow Web Demo limitations](https://docs.cloud.google.com/dialogflow/es/docs/integrations/web-demo)
 - [NPCI fraud awareness](https://www.npci.org.in/fraud-awareness)
 - [RBI digital banking safeguards](https://rbikehtahai.rbi.org.in/safeguards-for-digital-banking.html)
 - [National Cybercrime Reporting Portal](https://cybercrime.gov.in/)
