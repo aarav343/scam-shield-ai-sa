@@ -5,6 +5,13 @@
 **Assessment:** Summative Assessment (Individual), IBCP Year 1  
 **Platform:** Google Dialogflow ES
 
+## Project files
+
+- `ScamShieldAI_Agent.zip` - Dialogflow ES agent import
+- `ScamShieldAI_Report.pdf` - summative assessment report
+- `build_agent.py` - agent package source
+- `build_report.py` - report source
+
 ## Project overview
 
 Scam Shield AI is a human-centered conversational fraud-awareness assistant for people who receive urgent payment requests, suspicious links, fake job offers, or impersonation calls. It offers clear warnings, safe next steps, and official reporting routes. It does not inspect URLs, verify identities, or certify a message as genuine. It never asks users to share a real OTP, UPI PIN, password, CVV, or full account details.
