@@ -9,8 +9,6 @@
 
 - `ScamShieldAI_Agent.zip` - Dialogflow ES agent import
 - `ScamShieldAI_Report.pdf` - summative assessment report
-- `build_agent.py` - agent package source
-- `build_report.py` - report source
 
 ## Project overview
 
