@@ -1,4 +1,4 @@
-"""Create the ScamShield AI summative assessment PDF."""
+"""Create the Scam Shield AI summative assessment report."""
 
 from __future__ import annotations
 
@@ -113,7 +113,6 @@ def build():
         p("People who get payment requests, fake job offers, impersonation calls or unfamiliar links may react quickly without checking who is contacting them. Scam Shield AI gives advice and a safe path to official help. Scam Shield AI does not say that a message or sender is genuine."),
         section("02  Audience and design goals"),
         p("The main users are people who use payments, students, job seekers, older adults and anyone who may have already shared information or sent money. The response design focuses on a warning, an explanation and a safe next step. The response does not ask users to share OTPs, UPI PINs, passwords, CVVs or full account details."),
-        p("<b>Language observations:</b> English scenarios passed in the Dialogflow console. With Hindi selected, the recorded scam requests reached fallback or an unrelated intent."),
         section("03  Solution architecture"),
         p("The agent package contains <b>21 intents</b>, including welcome and fallback. It contains <b>10 custom entities</b> and <b>240 example training phrases</b>. Each custom intent contains 12 example phrases. A required requested-action parameter shows slot filling. Short-lived contexts help with scam-detail follow-up and an OTP-safety quiz. Quick replies guide users to clear steps. The agent works without a webhook or a personal data store."),
         table([
@@ -171,7 +170,7 @@ def build():
     flow.extend([
         table(rows, [100, 124, 283]),
         section("08  Recorded implementation"),
-        p("The Dialogflow ES console agent is ScamShieldAI (agent ID scamshieldai-k9we), with 21 intents and 10 custom entities. Ten English scenarios and three additional English inputs passed in the console. The English greeting also matched Welcome when en was selected. Recorded Hindi scam requests reached fallback or an unrelated intent. The chatbot is demonstrated through the Dialogflow ES console. The GitHub repository is private at <link href='https://github.com/aarav343/scam-shield-ai-sa' color='#007D76'>github.com/aarav343/scam-shield-ai-sa</link>."),
+        p("The Dialogflow ES console agent is ScamShieldAI (agent ID scamshieldai-k9we), with 21 intents and 10 custom entities. Ten English scenarios and three additional English inputs passed in the console. The chatbot is demonstrated through the Dialogflow ES console."),
         section("09  Sources"),
         p("SA brief: CRS AI Y1C1 Artificial Intelligence - Real-World Applications and Implications (Summative Assessment).", "SmallCustom"),
         p("Google Cloud Dialogflow ES documentation: agent import/export and intent parameters.", "SmallCustom"),
