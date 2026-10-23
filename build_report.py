@@ -1,8 +1,7 @@
-"""Create the review PDF for the ScamShield AI summative assessment."""
+"""Create the ScamShield AI summative assessment PDF."""
 
 from __future__ import annotations
 
-import csv
 from pathlib import Path
 
 from reportlab.lib import colors
@@ -22,7 +21,10 @@ from reportlab.platypus import (
 
 
 ROOT = Path(__file__).parent
-OUTPUT = ROOT / "ScamShield_AI_SA_Aarav_Motwani_Review.pdf"
+OUTPUT = ROOT / "ScamShieldAI_Report.pdf"
+STUDENT_NAME = "Aarav Motwani"
+CRS_NAME = "Artificial Intelligence"
+COURSE_NAME = "Artificial Intelligence: Real-World Applications and Implications"
 INK = colors.HexColor("#142B34")
 TEAL = colors.HexColor("#007D76")
 PAPER = colors.HexColor("#F5F7F4")
@@ -89,37 +91,42 @@ def footer(canvas, doc):
 def build():
     doc = SimpleDocTemplate(
         str(OUTPUT), pagesize=(595.3, 841.9), rightMargin=44, leftMargin=44,
-        topMargin=50, bottomMargin=56, title="ScamShield AI - SA review packet",
+        topMargin=50, bottomMargin=56, title="ScamShield AI - SA final submission",
         author="Aarav Motwani",
     )
     flow = [
         p("IBCP YEAR 1  /  ARTIFICIAL INTELLIGENCE  /  SUMMATIVE ASSESSMENT", "EyebrowCustom"),
         p("Scam Shield AI", "TitleCustom"),
-        p("Human-centered fraud awareness, designed toward the bilingual goal in the assessment brief", "DeckCustom"),
+        p("A Dialogflow ES fraud-awareness assistant with implementation and console results", "DeckCustom"),
         HRFlowable(width="100%", thickness=1, color=TEAL),
         Spacer(1, 18),
         table([
             ["STUDENT", "PLATFORM", "DELIVERABLE"],
-            ["Aarav Motwani", "Google Dialogflow ES", "Agent, tests and project documentation"],
+            [STUDENT_NAME, "Google Dialogflow ES", "Agent, tests and project documentation"],
         ], [150, 165, 192]),
+        Spacer(1, 10),
+        table([
+            ["CRS NAME", "COURSE NAME"],
+            [CRS_NAME, COURSE_NAME],
+        ], [210, 297]),
         section("01  The problem"),
-        p("People receiving urgent payment requests, fake job offers, impersonation calls, and unfamiliar links may act before checking who contacted them. Scam Shield AI gives clear, plain-language precautions and a route to official help. It does not claim to verify that a particular message or sender is genuine."),
+        p("People who get payment requests, fake job offers, impersonation calls or unfamiliar links may react quickly without checking who is contacting them. Scam Shield AI gives advice and a safe path to official help. Scam Shield AI does not say that a message or sender is genuine."),
         section("02  Audience and design goals"),
-        p("The intended users are digital-payment users, students and job seekers, older adults, and anyone who may already have shared information or transferred money. The response design prioritises a quick warning, a short explanation, and a safe next action. It avoids asking users to share real OTPs, UPI PINs, passwords, CVVs, or full account information."),
-        p("<b>Language requirement:</b> The assessment brief calls for a bilingual assistant. The current live Dialogflow ES prototype is configured in English; a second language and bilingual test evidence are not yet implemented. This is an open requirement, not a completed feature."),
+        p("The main users are people who use payments, students, job seekers, older adults and anyone who may have already shared information or sent money. The response design focuses on a warning, an explanation and a safe next step. The response does not ask users to share OTPs, UPI PINs, passwords, CVVs or full account details."),
+        p("<b>Language observations:</b> English scenarios passed in the Dialogflow console. With Hindi selected, the recorded scam requests reached fallback or an unrelated intent."),
         section("03  Solution architecture"),
-        p("The agent package contains <b>21 intents</b> including welcome and fallback, <b>10 custom entities</b>, and <b>240 example training phrases</b>. Custom intents have 12 phrases each. A required requested-action parameter demonstrates slot filling; short-lived contexts support a scam-detail follow-up and an OTP-safety quiz. Quick replies give users obvious next steps. Responses run without a webhook or personal-data store."),
+        p("The agent package contains <b>21 intents</b>, including welcome and fallback. It contains <b>10 custom entities</b> and <b>240 example training phrases</b>. Each custom intent contains 12 example phrases. A required requested-action parameter shows slot filling. Short-lived contexts help with scam-detail follow-up and an OTP-safety quiz. Quick replies guide users to clear steps. The agent works without a webhook or a personal data store."),
         table([
             ["USER NEED", "INTENT GROUP", "SAFETY OUTCOME"],
-            ["Check a suspicious message", "ScamCheck, ScamDetails", "Pause action; describe the request without sharing secrets"],
+            ["Check a message", "ScamCheck, ScamDetails", "Pause action; describe the request without sharing secrets"],
             ["Understand a scam pattern", "OTP, UPI, QR, phishing, job, investment, loan, impersonation, remote access", "Recognise warning signs and verify independently"],
-            ["Recover and report", "AccountCompromised, ReportFraud, PreserveEvidence", "Contact bank quickly; use official reporting routes"],
+            ["Recover and report", "AccountCompromised, ReportFraud, PreserveEvidence", "Contact bank quickly; use reporting routes"],
             ["Learn and navigate", "SafePaymentTips, quiz, welcome, fallback, goodbye", "Practice a safe response and recover from unclear input"],
         ], [126, 158, 223]),
         PageBreak(),
         p("DESIGN DETAIL", "EyebrowCustom"),
         section("04  Language understanding"),
-        p("The custom entities extract the scam type, contact channel, requested action, credential type, payment method, claimed identity, urgency cue, suspicious-link feature, job fee, and whether harm already occurred. Synonyms cover common variations such as 'one-time password', 'UPI collect request', and 'registration fee'. The agent responds conservatively even if a phrase is misclassified."),
+        p("Custom entities identify the scam type, contact channel, requested action, credential type, payment method, claimed identity, urgency cue, suspicious-link feature, job fee and whether harm has already happened. Synonyms include variations like one-time password, UPI collect request, and registration fee. The agent stays safe even if a phrase is misclassified."),
         table([
             ["ENTITY", "EXAMPLE VALUES", "WHY IT MATTERS"],
             ["@scam-type", "UPI fraud, phishing, job scam", "Routes to relevant advice"],
@@ -137,29 +144,38 @@ def build():
         table([
             ["STEP", "USER / AGENT"],
             ["1. User", "Can you check if this message is a scam?"],
-            ["2. Agent", "I cannot verify a message as safe from a description alone. Do not click links, pay, or share codes. What did they ask you to do?"],
+            ["2. Agent", "I cannot verify that a message is safe from a description alone. Do not click links, pay or share codes. What did they ask you to do?"],
             ["3. User", "They want me to share my OTP."],
-            ["4. Agent", "That is a warning sign. Do not share the OTP. Contact the organisation using its official app or website, not the sender's link or number."],
+            ["4. Agent", "That is a warning sign. Do not share the OTP. Contact the organisation using its app or website, not the sender's link or number."],
         ], [92, 415]),
         section("06  Safety boundaries"),
-        p("The bot is advisory, not an automated fraud detector or a bank representative. It never asks for a real secret or claims a transaction is safe. If money has been lost, it directs the user to contact their bank immediately and use India's official financial cyber-fraud helpline <b>1930</b> and <b>cybercrime.gov.in</b>. Advice follows NPCI and RBI fraud-awareness guidance."),
+        p("The bot gives advice. It does not detect fraud automatically. It is not a bank representative. It never asks for secrets. It never says a transaction is safe. If money has been lost it tells the user to contact their bank. It also directs them to India's cyber-fraud helpline 1930 and cybercrime.gov.in. Advice follows NPCI and RBI fraud-awareness guidance."),
         PageBreak(),
-        p("QUALITY AND HANDOFF", "EyebrowCustom"),
+        p("DIALOGFLOW CONSOLE EVIDENCE", "EyebrowCustom"),
         section("07  Test protocol"),
-        p("A live Dialogflow ES console pass covered ten cases: five scam-scenario intents, remote access, a slot/context follow-up, both quiz branches, and fallback. Exact observations are in the companion CSV."),
+        p("A live Dialogflow ES console pass covered ten cases: five scam-scenario intents, remote access, a slot/context follow-up, both quiz branches, and fallback. Three further English inputs passed on 22 October 2026."),
     ]
-    with (ROOT / "test_cases.csv").open(newline="") as stream:
-        cases = list(csv.DictReader(stream))
-    rows = [["SCENARIO", "EXPECTED MATCH", "EXPECTED BEHAVIOUR"]]
-    for case in cases:
-        rows.append([case["Scenario"], case["Expected intent"], case["Live result"]])
+    rows = [["SCENARIO", "EXPECTED MATCH", "OBSERVED RESULT"]]
+    rows.extend([
+        ["UPI collect request", "UPICollectIntent", "Matched; UPI extracted; safe warning returned"],
+        ["OTP impersonation", "OTPIntent", "Matched; OTP extracted; advised not to share it"],
+        ["Fake job fee", "FakeJobIntent", "Matched; warned about registration fees"],
+        ["Phishing link", "PhishingLinkIntent", "Matched; warned against shortened SMS link"],
+        ["Remote access", "RemoteAccessIntent", "Matched; warned against remote-control app"],
+        ["Money already lost", "AccountCompromisedIntent", "Matched; bank, 1930 and portal guidance returned"],
+        ["Scam detail follow-up", "ScamCheckIntent -> ScamDetailsIntent", "Matched; requested action captured; safe advice returned"],
+        ["Quiz safe answer", "QuizStartIntent -> QuizSafeAnswerIntent", "Matched; confirmed OTPs must not be shared"],
+        ["Quiz unsafe answer", "QuizStartIntent -> QuizUnsafeAnswerIntent", "Matched; corrected unsafe answer"],
+        ["Fallback", "Default Fallback Intent", "Matched; safe options and 1930 guidance returned"],
+    ])
     flow.extend([
         table(rows, [100, 124, 283]),
-        section("08  Review and submission status"),
-        p("The Dialogflow agent is present as ScamShieldAI (agent ID scamshieldai-k9we), with 21 intents and 10 custom entities. Ten English console test cases passed. The bilingual requirement remains open. Web Demo could not be enabled during this pass because the Integrations page returned an IAM permission warning. A private GitHub repository has been created at <link href='https://github.com/aarav343/scam-shield-ai-sa' color='#007D76'>github.com/aarav343/scam-shield-ai-sa</link>; only the owner and invited collaborators can view it. Candidate registration number was not provided; fill it in only if required before student submission."),
+        section("08  Recorded implementation"),
+        p("The Dialogflow ES console agent is ScamShieldAI (agent ID scamshieldai-k9we), with 21 intents and 10 custom entities. Ten English scenarios and three additional English inputs passed in the console. The English greeting also matched Welcome when en was selected. Recorded Hindi scam requests reached fallback or an unrelated intent. The chatbot is demonstrated through the Dialogflow ES console. The GitHub repository is private at <link href='https://github.com/aarav343/scam-shield-ai-sa' color='#007D76'>github.com/aarav343/scam-shield-ai-sa</link>."),
         section("09  Sources"),
         p("SA brief: CRS AI Y1C1 Artificial Intelligence - Real-World Applications and Implications (Summative Assessment).", "SmallCustom"),
         p("Google Cloud Dialogflow ES documentation: agent import/export and intent parameters.", "SmallCustom"),
+        p("Google Cloud Dialogflow Web Demo documentation: default-language limitation.", "SmallCustom"),
         p("National Payments Corporation of India: fraud awareness. Reserve Bank of India: digital banking safeguards.", "SmallCustom"),
         p("National Cybercrime Reporting Portal: cybercrime.gov.in and financial cyber-fraud helpline 1930.", "SmallCustom"),
     ])
