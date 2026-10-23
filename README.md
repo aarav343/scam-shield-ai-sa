@@ -13,7 +13,7 @@ Scam Shield AI is a human-centered conversational fraud-awareness assistant for 
 
 Primary users are digital-payment users, students and job seekers, older adults, and people who may already have shared information or transferred money. Their pain points include urgency and pressure, confusing payment interfaces, fake authority cues, and uncertainty about what to save or report. The goal is to give a quick warning, a concise explanation, and a safe next action, then direct affected users to their bank and official reporting channels. The project does not move money, contact banks, or replace a professional investigation.
 
-English is the working language in the recorded Dialogflow ES console tests. Hindi is available in the language selector. In the recorded Hindi console tests, scam requests reached the fallback or an unrelated intent; the separate Hindi package was not active during those tests. Results are in `HINDI_CONSOLE_TESTS.md`.
+English is the working language in the Dialogflow ES console. Hindi appears in the language selector, but Hindi scam requests did not reliably match the intended intents in the recorded console session.
 
 ## Architecture
 
@@ -60,9 +60,9 @@ The import contains **21 intents** (including default welcome and fallback), **1
 
 ## Dialogflow console results
 
-The agent is `ScamShieldAI` (`scamshieldai-k9we`). Its English configuration contains 21 intents and 10 custom entities. The ten scenarios in `test_cases.csv` and three additional English inputs in `SECOND_PASS.md` passed in the Dialogflow ES console. The English greeting `hi` also matched Default Welcome Intent when `en` was selected. The Hindi results in `HINDI_CONSOLE_TESTS.md` describe the live agent before the separate Hindi package was imported.
+The agent is `ScamShieldAI` (`scamshieldai-k9we`). Its English configuration contains 21 intents and 10 custom entities. The English scenarios recorded for the assessment matched the intended intents in the Dialogflow ES console. The greeting `hi` matched Default Welcome Intent when `en` was selected. Hindi scam requests reached fallback or an unrelated intent in the recorded session.
 
-The chatbot is demonstrated through the Dialogflow ES console. The former Web Demo URL returns 404 and is omitted from this repository's project links.
+The chatbot is demonstrated through the Dialogflow ES console.
 
 **GitHub repository:** https://github.com/aarav343/scam-shield-ai-sa (private).
 
