@@ -9,6 +9,7 @@
 
 - `ScamShieldAI_Agent.zip` - Dialogflow ES agent import
 - `ScamShieldAI_Report.pdf` - summative assessment report
+- `ScamShieldAI_Assessment.docx` - editable Word assessment
 
 ## Project overview
 
@@ -68,6 +69,8 @@ The import contains **21 intents** (including default welcome and fallback), **1
 The agent is `ScamShieldAI` (`scamshieldai-k9we`). Its English configuration contains 21 intents and 10 custom entities. The English scenarios recorded for the assessment matched the intended intents in the Dialogflow ES console. The greeting `hi` matched Default Welcome Intent when `en` was selected. Hindi scam requests reached fallback or an unrelated intent in the recorded session.
 
 The chatbot is demonstrated through the Dialogflow ES console.
+
+**Dialogflow ES agent:** https://dialogflow.cloud.google.com/#/editAgent/scamshieldai-k9we/ (Google sign-in and project access required).
 
 **GitHub repository:** https://github.com/aarav343/scam-shield-ai-sa (private).
 
