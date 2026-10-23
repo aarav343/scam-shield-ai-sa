@@ -1,4 +1,4 @@
-"""Build the ScamShield AI Dialogflow ES import and documentation."""
+"""Build the Scam Shield AI Dialogflow ES agent import."""
 
 from __future__ import annotations
 
@@ -631,7 +631,7 @@ def build_zip() -> None:
         "onePlatformApiVersion": "v2",
         "webhook": {"url": "", "username": "", "headers": {}, "available": False, "useForDomains": False},
     }
-    archive = ROOT / "ScamShield_AI_Dialogflow_ES_Import.zip"
+    archive = ROOT / "ScamShieldAI_Agent.zip"
     with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as package:
         package.writestr("agent.json", json.dumps(agent, indent=2))
         package.writestr("package.json", json.dumps({"version": "1.0.0"}, indent=2))
