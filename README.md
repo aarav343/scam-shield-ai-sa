@@ -11,11 +11,9 @@ Scam Shield AI is a conversational fraud-awareness assistant. I built it to help
 
 The chatbot explains common warning signs and suggests practical next steps. It is **an awareness and guidance tool, not a fraud-verification service**. It cannot inspect URLs, confirm identities, determine for certain whether a message is genuine, contact a bank, or recover money. Users should never enter real OTPs, UPI PINs, passwords, CVVs, or full account details into the chatbot.
 
-## Project files
+## Agent package
 
-| File | Purpose |
-| --- | --- |
-| `ScamShieldAI_Agent.zip` | Dialogflow ES agent import package |
+`ScamShieldAI_Agent.zip` is the Dialogflow ES agent import package.
 
 ## Problem and intended users
 
