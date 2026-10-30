@@ -16,8 +16,6 @@ The chatbot explains common warning signs and suggests practical next steps. It 
 | File | Purpose |
 | --- | --- |
 | `ScamShieldAI_Agent.zip` | Dialogflow ES agent import package |
-| `ScamShieldAI_Report.pdf` | Summative assessment report |
-| `ScamShieldAI_Assessment.docx` | Editable Word assessment |
 
 ## Problem and intended users
 
@@ -94,7 +92,7 @@ These are representative examples. The imported entity definitions are the sourc
 
 ## Testing and results
 
-I tested the agent in the **Dialogflow ES “Try it now” console**. The assessment report records **13 English scenario checks** that matched their intended intents and gave appropriate precautionary advice. A separate English greeting test matched Default Welcome Intent when English (`en`) was selected.
+I tested the agent in the **Dialogflow ES “Try it now” console**. I recorded **13 English scenario checks** that matched their intended intents and gave appropriate precautionary advice. A separate English greeting test matched Default Welcome Intent when English (`en`) was selected.
 
 The scenarios included OTP requests, UPI collect requests, phishing links, fake job fees, remote-access requests, money already lost, scam-detail follow-up, quiz responses, and fallback behaviour.
 
@@ -137,4 +135,4 @@ This is a course prototype rather than a production fraud-detection product. Its
 - [RBI: Safeguards for digital banking](https://rbikehtahai.rbi.org.in/safeguards-for-digital-banking.html)
 - [National Cybercrime Reporting Portal](https://cybercrime.gov.in/)
 
-**Project repository:** [aarav343/scam-shield-ai-sa](https://github.com/aarav343/scam-shield-ai-sa) (private; repository access required).
+**Project repository:** [aarav343/scam-shield-ai-sa](https://github.com/aarav343/scam-shield-ai-sa).
